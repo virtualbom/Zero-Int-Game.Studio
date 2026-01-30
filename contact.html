@@ -1,197 +1,42 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact | ZERO INTERACTIVE GAME</title>
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css" />
-
-  <style>
-    /* Layout */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #3f4863;
-      color: #fff;
-      display: flex;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      width: 220px;
-      background: #2b2f42;
-      padding: 20px;
-      height: 100vh;
-    }
-
-    .sidebar h2 {
-      margin-top: 0;
-      letter-spacing: 2px;
-    }
-
-    .sidebar a {
-      display: block;
-      color: #fff;
-      text-decoration: none;
-      margin: 12px 0;
-      opacity: 0.8;
-    }
-
-    .sidebar a:hover,
-    .sidebar a.active {
-      opacity: 1;
-      font-weight: bold;
-    }
-
-    /* Main */
-    .main {
-      flex: 1;
-      padding: 40px;
-      text-align: center;
-    }
-
-    .page-title {
-      font-size: 36px;
-      margin-bottom: 40px;
-    }
-
-    /* Discord Card */
-    .discord-card {
-      margin: 0 auto;
-      background: #2b2f42;
-      border-radius: 12px;
-      padding: 16px 20px;
-      max-width: 360px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-    }
-
-    .discord-card:hover {
-      background: #343a55;
-      transform: translateY(-2px);
-    }
-
-    .discord-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-    }
-
-    .discord-text {
-      flex: 1;
-      text-align: left;
-    }
-
-    .discord-name {
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    .discord-status {
-      font-size: 14px;
-      opacity: 0.8;
-    }
-
-    .online { color: #3ba55d; }
-    .idle { color: #faa61a; }
-    .dnd { color: #ed4245; }
-    .offline { color: #747f8d; }
-
-    .copy-icon {
-      font-size: 18px;
-      opacity: 0.7;
-    }
-
-    /* Toast */
-    .toast {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #000;
-      padding: 10px 18px;
-      border-radius: 20px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-    }
-
-    .toast.show {
-      opacity: 1;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>Contact | ZERO</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Sidebar -->
-  <nav class="sidebar">
-    <h2>ZERO</h2>
+<!-- ===== NAVBAR ===== -->
+<header class="navbar">
+  <div class="logo">ZERO</div>
+  <nav>
     <a href="index.html">Home</a>
     <a href="vision.html">Vision</a>
     <a href="projects.html">Project Game</a>
     <a href="about.html">About Us</a>
     <a href="contact.html" class="active">Contact</a>
   </nav>
+</header>
 
-  <!-- Main -->
-  <main class="main">
-    <h1 class="page-title">Contact</h1>
+<!-- ===== CONTENT ===== -->
+<main class="center">
+  <h1>Contact</h1>
 
-    <div class="discord-card" onclick="copyDiscord()">
-      <img
-        id="discordAvatar"
-        class="discord-avatar"
-        src="https://cdn.discordapp.com/embed/avatars/0.png"
-        alt="Discord Avatar"
-      />
+  <div class="contact-card" onclick="copyDiscord()">
+    <div class="avatar"></div>
 
-      <div class="discord-text">
-        <div class="discord-name">virtualhino</div>
-        <div id="discordStatus" class="discord-status offline">
-          Offline
-        </div>
-      </div>
-
-      <div class="copy-icon">📋</div>
+    <div class="info">
+      <span class="username">virtualhino</span>
+      <span class="status offline">Offline</span>
     </div>
 
-    <div id="toast" class="toast">Copy Username</div>
-  </main>
+    <div class="copy-icon">📋</div>
+  </div>
 
-  <!-- JavaScript -->
-  <script>
-    const DISCORD_USERNAME = "virtualhino";
-    const DISCORD_ID = "YOUR_DISCORD_USER_ID"; // ใส่ ID จริงถ้าอยากโชว์สถานะ
+  <p id="toast">Copy Username</p>
+</main>
 
-    function copyDiscord() {
-      navigator.clipboard.writeText(DISCORD_USERNAME);
-      const toast = document.getElementById("toast");
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 1500);
-    }
-
-    // Discord Status (Optional)
-    if (DISCORD_ID !== "YOUR_DISCORD_USER_ID") {
-      fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`)
-        .then(res => res.json())
-        .then(data => {
-          const d = data.data;
-          const statusEl = document.getElementById("discordStatus");
-
-          statusEl.textContent = d.discord_status;
-          statusEl.className = `discord-status ${d.discord_status}`;
-
-          document.getElementById("discordAvatar").src =
-            `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${d.discord_user.avatar}.png`;
-        })
-        .catch(() => {});
-    }
-  </script>
-
+<script src="script.js"></script>
 </body>
 </html>
