@@ -1,0 +1,64 @@
+<!-- contact.html -->
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | ZERO INTERACTIVE GAME</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="sidebar" id="sidebar">
+  <h2>ZERO</h2>
+  <a href="index.html">Home</a>
+  <a href="vision.html">Vision</a>
+  <a href="projects.html">Project Game</a>
+  <a href="about.html">About Us</a>
+  <a href="contact.html" class="active">Contact</a>
+</nav>
+
+<div class="main">
+  <h1>Contact</h1>
+
+  <div class="discord-card" onclick="copyDiscord()">
+    <img id="discordAvatar" class="avatar" />
+
+    <div class="discord-info">
+      <div class="username">virtualhino</div>
+      <div id="status" class="status offline">Offline</div>
+    </div>
+
+    <div class="copy-icon">📋</div>
+  </div>
+
+  <div id="toast" class="toast">Copy Username</div>
+</div>
+
+<script>
+const USER_ID = "YOUR_DISCORD_USER_ID"; // ใส่ Discord User ID
+
+// Copy username
+function copyDiscord() {
+  navigator.clipboard.writeText("virtualhino");
+  const toast = document.getElementById("toast");
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 1500);
+}
+
+// ดึงข้อมูล Discord (ใช้ Lanyard API)
+fetch(`https://api.lanyard.rest/v1/users/${USER_ID}`)
+  .then(res => res.json())
+  .then(data => {
+    const d = data.data;
+    document.getElementById("discordAvatar").src = `https://cdn.discordapp.com/avatars/${USER_ID}/${d.discord_user.avatar}.png`;
+
+    const status = document.getElementById("status");
+    status.textContent = d.discord_status;
+    status.className = `status ${d.discord_status}`;
+  })
+  .catch(() => console.log("Discord status unavailable"));
+</script>
+
+</body>
+</html>
